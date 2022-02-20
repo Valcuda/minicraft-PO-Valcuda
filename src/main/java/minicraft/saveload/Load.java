@@ -303,7 +303,7 @@ public class Load {
 	private void loadPrefs(String filename) {
 		loadFromFile(location + filename + extension);
 		
-		Version prefVer = new Version("1.0.0"); // the default, b/c this doesn't really matter much being specific past this if it's not set below.
+		Version prefVer = new Version("2.0.2"); // the default, b/c this doesn't really matter much being specific past this if it's not set below.
 		
 		// TODO reformat the preferences file so that it uses key-value pairs. or json. JSON would be good.
 		// TODO then, allow multiple saved accounts.

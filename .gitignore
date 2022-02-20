@@ -341,3 +341,5 @@ build/tmp/compileJava/previous-compilation-data.bin
 build/tmp/jar/MANIFEST.MF
 build/tmp/shadowJar/MANIFEST.MF
 gradle/wrapper/gradle-wrapper.jar
+build/libs/minicraft_plus-2.0.7.jar
+build/distributions/minicraft-PO-Valcuda-2.0.7.zip
