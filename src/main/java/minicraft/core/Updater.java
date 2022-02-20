@@ -2,6 +2,8 @@ package minicraft.core;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import minicraft.core.io.Localization;
 import minicraft.core.io.Settings;
@@ -29,9 +31,9 @@ public class Updater extends Game {
 
 	public static int tickCount = 0; // The number of ticks since the beginning of the game day.
 	static int time = 0; // Facilites time of day / sunlight.
-	public static final int dayLength = 64800; // This value determines how long one game day is.
+	public static final int dayLength = 5184000; // This value determines how long one game day is.
 	public static final int sleepEndTime = dayLength/8; // This value determines when the player "wakes up" in the morning.
-	public static final int sleepStartTime = dayLength/2+dayLength/8; // This value determines when the player allowed to sleep.
+	public static final int sleepStartTime = 5184001; // This value determines when the player allowed to sleep.
 	//public static int noon = 32400; // This value determines when the sky switches from getting lighter to getting darker.
 
 	public static int gameTime = 0; // This stores the total time (number of ticks) you've been playing your
@@ -47,10 +49,13 @@ public class Updater extends Game {
 
 	public static int notetick = 0; // "note"= notifications.
 
-	private static final int astime = 7200; // tands for Auto-Save Time (interval)
+	private static final int astime = 7200; // Stands for Auto-Save Time (interval)
 	public static int asTick = 0; // The time interval between autosaves.
 	public static boolean saving = false; // If the game is performing a save.
 	public static int savecooldown; // Prevents saving many times too fast, I think.
+	
+	public static int cstime = 3600; // Stands for Clock-Sync Time. The interval that the game time syncs to the clock
+	public static int csTick = 0;
 
 	public enum Time {
 		Morning (0),
@@ -146,7 +151,15 @@ public class Updater extends Game {
 			
 			asTick = 0;
 		}
-		
+		if(!paused || isValidServer() )
+			csTick++;
+		if (csTick > cstime) {
+			if (!gameOver) {
+				if (isValidServer())
+					synctime();
+			}
+			csTick = 0;
+		}
 		// Increment tickCount if the game is not paused
 		if (!paused || isValidServer()) setTime(tickCount+1);
 		
@@ -367,5 +380,11 @@ public class Updater extends Game {
 			server.broadcastNotification(msg, notetick);
 		else if (isConnectedClient())
 			client.sendNotification(msg, notetick);
+	}
+	public static void synctime() {
+		LocalDateTime date = LocalDateTime.now();
+		int seconds = date.toLocalTime().toSecondOfDay();
+		int tick = seconds * 60;
+		changeTimeOfDay(tick);
 	}
 }

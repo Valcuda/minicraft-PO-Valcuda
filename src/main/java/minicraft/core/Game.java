@@ -36,8 +36,8 @@ public class Game {
 	public static boolean packet_debug = false;
 	public static boolean HAS_GUI = true;
 	
-	public static final String NAME = "Minicraft Plus"; // This is the name on the application window.
-	public static final Version VERSION = new Version("2.0.7");
+	public static final String NAME = "Minicraft+ Valcuda"; // This is the name on the application window.
+	public static final Version VERSION = new Version("1.0.0");
 	
 	public static InputHandler input; // Input used in Game, Player, and just about all the *Menu classes.
 	public static Player player;

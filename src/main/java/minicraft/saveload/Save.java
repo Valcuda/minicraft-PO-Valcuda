@@ -46,7 +46,7 @@ public class Save {
 	public String location = Game.gameDir;
 	File folder;
 
-	public static String extension = ".miniplussave";
+	public static String extension = ".minipovsave";
 
 	List<String> data;
 

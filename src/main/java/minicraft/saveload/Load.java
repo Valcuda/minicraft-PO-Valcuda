@@ -303,7 +303,7 @@ public class Load {
 	private void loadPrefs(String filename) {
 		loadFromFile(location + filename + extension);
 		
-		Version prefVer = new Version("2.0.2"); // the default, b/c this doesn't really matter much being specific past this if it's not set below.
+		Version prefVer = new Version("1.0.0"); // the default, b/c this doesn't really matter much being specific past this if it's not set below.
 		
 		// TODO reformat the preferences file so that it uses key-value pairs. or json. JSON would be good.
 		// TODO then, allow multiple saved accounts.
@@ -315,39 +315,39 @@ public class Load {
 		Settings.set("sound", Boolean.parseBoolean(data.remove(0)));
 		Settings.set("autosave", Boolean.parseBoolean(data.remove(0)));
 		
-		if (prefVer.compareTo(new Version("2.0.4-dev2")) >= 0)
-			Settings.set("fps", Integer.parseInt(data.remove(0)));
+		//if (prefVer.compareTo(new Version("2.0.4-dev2")) >= 0)
+		//	Settings.set("fps", Integer.parseInt(data.remove(0)));
 
-		if (prefVer.compareTo(new Version("2.0.7-dev5")) >= 0)
-			SkinDisplay.setSelectedSkinIndex(Integer.parseInt(data.remove(0)));
+		//if (prefVer.compareTo(new Version("2.0.7-dev5")) >= 0)
+		//	SkinDisplay.setSelectedSkinIndex(Integer.parseInt(data.remove(0)));
 
-		List<String> subdata;
+		//List<String> subdata;
 		
-		if (prefVer.compareTo(new Version("2.0.3-dev1")) < 0) {
-			subdata = data;
-		} else {
-			MultiplayerDisplay.savedIP = data.remove(0);
-			if(prefVer.compareTo(new Version("2.0.3-dev3")) > 0) {
-				MultiplayerDisplay.savedUUID = data.remove(0);
-				MultiplayerDisplay.savedUsername = data.remove(0);
-				if(prefVer.compareTo(new Version("2.0.7net-dev4")) >= 0)
-					MultiplayerDisplay.savedToken = data.remove(0);
-			}
-			
-			if(prefVer.compareTo(new Version("2.0.4-dev3")) >= 0) {
-				String lang = data.remove(0);
-				Settings.set("language", lang);
-				Localization.changeLanguage(lang);
-			}
-			
-			String keyData = data.get(0);
-			subdata = Arrays.asList(keyData.split(":"));
-		}
-		
-		for (String keymap : subdata) {
-			String[] map = keymap.split(";");
-			Game.input.setKey(map[0], map[1]);
-		}
+		//if (prefVer.compareTo(new Version("1.0.0")) < 0) {
+		//	subdata = data;
+		//} else {
+		//	MultiplayerDisplay.savedIP = data.remove(0);
+		//	if(prefVer.compareTo(new Version("2.0.3-dev3")) > 0) {
+		//		MultiplayerDisplay.savedUUID = data.remove(0);
+		//		MultiplayerDisplay.savedUsername = data.remove(0);
+		//		if(prefVer.compareTo(new Version("2.0.7net-dev4")) >= 0)
+		//			MultiplayerDisplay.savedToken = data.remove(0);
+		//	}
+		//	
+		//	if(prefVer.compareTo(new Version("2.0.4-dev3")) >= 0) {
+		//		String lang = data.remove(0);
+		//		Settings.set("language", lang);
+		//		Localization.changeLanguage(lang);
+		//	}
+		//	
+		//	String keyData = data.get(0);
+		//	subdata = Arrays.asList(keyData.split(":"));
+		//}
+		//
+		//for (String keymap : subdata) {
+		//	String[] map = keymap.split(";");
+		//	Game.input.setKey(map[0], map[1]);
+		//}
 	}
 	
 	private void loadServerConfig(String filename, MinicraftServer server) {
