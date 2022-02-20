@@ -97,11 +97,11 @@ public class Load {
 		if (worldVer == null) worldVer = new Version("1.8");
 		
 		if (!hasGlobalPrefs)
-			hasGlobalPrefs = worldVer.compareTo(new Version("1.9.2")) >= 0;
+			hasGlobalPrefs = worldVer.compareTo(new Version("2.0.2")) >= 0;
 		
 		if (!loadGame) return;
 		
-		if (worldVer.compareTo(new Version("1.9.2")) < 0)
+		if (worldVer.compareTo(new Version("1.0.0")) < 0)
 			new LegacyLoad(worldname);
 		else {
 			location += "/saves/" + worldname + "/";
@@ -315,39 +315,39 @@ public class Load {
 		Settings.set("sound", Boolean.parseBoolean(data.remove(0)));
 		Settings.set("autosave", Boolean.parseBoolean(data.remove(0)));
 		
-		//if (prefVer.compareTo(new Version("2.0.4-dev2")) >= 0)
-		//	Settings.set("fps", Integer.parseInt(data.remove(0)));
+		if (prefVer.compareTo(new Version("2.0.4-dev2")) >= 0)
+			Settings.set("fps", Integer.parseInt(data.remove(0)));
 
-		//if (prefVer.compareTo(new Version("2.0.7-dev5")) >= 0)
-		//	SkinDisplay.setSelectedSkinIndex(Integer.parseInt(data.remove(0)));
+		if (prefVer.compareTo(new Version("2.0.7-dev5")) >= 0)
+			SkinDisplay.setSelectedSkinIndex(Integer.parseInt(data.remove(0)));
 
-		//List<String> subdata;
+		List<String> subdata;
 		
-		//if (prefVer.compareTo(new Version("1.0.0")) < 0) {
-		//	subdata = data;
-		//} else {
-		//	MultiplayerDisplay.savedIP = data.remove(0);
-		//	if(prefVer.compareTo(new Version("2.0.3-dev3")) > 0) {
-		//		MultiplayerDisplay.savedUUID = data.remove(0);
-		//		MultiplayerDisplay.savedUsername = data.remove(0);
-		//		if(prefVer.compareTo(new Version("2.0.7net-dev4")) >= 0)
-		//			MultiplayerDisplay.savedToken = data.remove(0);
-		//	}
-		//	
-		//	if(prefVer.compareTo(new Version("2.0.4-dev3")) >= 0) {
-		//		String lang = data.remove(0);
-		//		Settings.set("language", lang);
-		//		Localization.changeLanguage(lang);
-		//	}
-		//	
-		//	String keyData = data.get(0);
-		//	subdata = Arrays.asList(keyData.split(":"));
-		//}
-		//
-		//for (String keymap : subdata) {
-		//	String[] map = keymap.split(";");
-		//	Game.input.setKey(map[0], map[1]);
-		//}
+		if (prefVer.compareTo(new Version("2.0.3-dev1")) < 0) {
+			subdata = data;
+		} else {
+			MultiplayerDisplay.savedIP = data.remove(0);
+			if(prefVer.compareTo(new Version("2.0.3-dev3")) > 0) {
+				MultiplayerDisplay.savedUUID = data.remove(0);
+				MultiplayerDisplay.savedUsername = data.remove(0);
+				if(prefVer.compareTo(new Version("2.0.7net-dev4")) >= 0)
+					MultiplayerDisplay.savedToken = data.remove(0);
+			}
+			
+			if(prefVer.compareTo(new Version("2.0.4-dev3")) >= 0) {
+				String lang = data.remove(0);
+				Settings.set("language", lang);
+				Localization.changeLanguage(lang);
+			}
+			
+			String keyData = data.get(0);
+			subdata = Arrays.asList(keyData.split(":"));
+		}
+		
+		for (String keymap : subdata) {
+			String[] map = keymap.split(";");
+			Game.input.setKey(map[0], map[1]);
+		}
 	}
 	
 	private void loadServerConfig(String filename, MinicraftServer server) {

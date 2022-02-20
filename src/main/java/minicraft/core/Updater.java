@@ -55,7 +55,7 @@ public class Updater extends Game {
 	public static int savecooldown; // Prevents saving many times too fast, I think.
 	
 	public static int cstime = 3600; // Stands for Clock-Sync Time. The interval that the game time syncs to the clock
-	public static int csTick = 0;
+	public static int csTick = 3500; // Keep the default just under cstime so the game syncs not long after loading
 
 	public enum Time {
 		Morning (0),
